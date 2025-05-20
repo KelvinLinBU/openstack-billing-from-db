@@ -6,6 +6,7 @@ import subprocess
 import boto3
 import requests
 from requests.auth import HTTPBasicAuth
+from botocore.config import Config
 
 logger = logging.getLogger(__name__)
 
@@ -59,6 +60,7 @@ def download_latest_dump_from_s3() -> str:
         endpoint_url=s3_endpoint,
         aws_access_key_id=s3_key_id,
         aws_secret_access_key=s3_secret,
+        config=Config(s3={"use_checksums": False})
     )
 
     key = None
